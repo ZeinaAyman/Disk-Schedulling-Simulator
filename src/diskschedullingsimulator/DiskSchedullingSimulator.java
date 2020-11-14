@@ -49,22 +49,24 @@ public class DiskSchedullingSimulator {
     
     static void SCAN(int[] scn,int initial,double seek,int size,int direction){
         int total = 0;
+        int brk = 0;
         Arrays.sort(scn);
         if(direction == 1){
             //left
-            for(int i=0; i<size-1; i++){
-                if(initial <= scn[i]){
+            for(int i=0; i<= size-1; i++){
+                if(initial <= scn[i] && brk == 0){
                     total += Math.abs(initial - scn[i-1]);
                     for(int j=i-1; j >= 0; j--){
                         if(j == 0){
                             total += Math.abs(scn[j] - 0);
                             total += Math.abs(scn[i] - 0);
+                            brk = 1;
                             break;
                         }
                         total += Math.abs(scn[j] - scn[j-1]);
                     }
-                }else if(initial >= scn[i]){
-                    total += Math.abs(scn[i] - scn[i+1]);
+                }else if(initial < scn[i] && total != 0){
+                    total += Math.abs(scn[i-1] - scn[i]);
                 }
             }
             System.out.println(total);
