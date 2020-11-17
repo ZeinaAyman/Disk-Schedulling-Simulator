@@ -27,35 +27,27 @@ public class DiskSchedullingSimulator {
         }
     }
     
-    static void FCFS(int[] req,int initial,double seek,int size){
+    static int FCFS(int[] req,int initial,double seek,int size){
         int total = 0;
-       // if(initial > req[0])
-      //  {
-            total = Math.abs(initial - req[0]);
-      //  }
-       // else
-         //   total = req[0] - initial;
+        total = Math.abs(initial - req[0]);
         
         for(int i=1;i< size;i++){
-           // if(req[i] > req[i-1])
-          //  {
-                total += Math.abs(req[i] - req[i-1]);
-         //   }
-          //  else
-               // total += req[i-1] - req[i];
+            total += Math.abs(req[i] - req[i-1]);
         }
-        System.out.println(total);
+       // System.out.println(total);
+       return total;
     }
     
-    static void SCAN(int[] scn,int initial,double seek,int size,int direction){
+    static double SCAN(int[] scn,int initial,double seek,int size,int direction,int bound){
         int total = 0;
         int brk = 0;
+        int g = 0;
         Arrays.sort(scn);
         if(direction == 1){
             //left
             for(int i=0; i<= size-1; i++){
                 if(initial <= scn[i] && brk == 0){
-                    total += Math.abs(initial - scn[i-1]);
+                    total += Math.abs(initial - scn[i-1]); // i = 3
                     for(int j=i-1; j >= 0; j--){
                         if(j == 0){
                             total += Math.abs(scn[j] - 0);
@@ -69,10 +61,36 @@ public class DiskSchedullingSimulator {
                     total += Math.abs(scn[i-1] - scn[i]);
                 }
             }
-            System.out.println(total);
+            //System.out.println(total);
+           // System.out.print("Total number of head movemets: ");
+            //System.out.println(size+1); // head movements
+           // System.out.println("Total seek time in seconds: ");
+          //  double see = total * seek;
+          //  System.out.println(see);
+          return total;
         }
         else{
             //right
+            total = 0;
+            brk = 0;
+            for(int i=0; i<=size-2;i++){ //law size-1 hayeb2a fi index out of bounds 3shan else if condition
+                 if(initial <= scn[i] && brk == 0){ //i = 2
+                    total += Math.abs(initial - scn[i]);
+                    for(int j=i; j<=size-1;j++){
+                        if(j == size-1){
+                            total += Math.abs(scn[j] - bound);
+                            total += Math.abs(scn[i-1] - bound);
+                            brk = 1;
+                            break;
+                        }
+                        total += Math.abs(scn[j] - scn[j+1]);
+                    }
+                }else if(initial > scn[i+1]){ //i = 0 we take the sum of the values < initial before executing the right section
+                    total += Math.abs(scn[i+1] - scn[i]);
+                }
+            }
+            // System.out.println(total);
+            return total;          
         }
     }
     
@@ -125,10 +143,10 @@ public class DiskSchedullingSimulator {
             c = s.nextInt();
             switch (c) {
                 case 1:
-                    SCAN(scn,initial,seek,size,1);
+                    System.out.println(SCAN(scn,initial,seek,size,1,bound));
                     break;
                 case 2:
-                    SCAN(scn,initial,seek,size,2);
+                    System.out.println(SCAN(scn,initial,seek,size,2,bound));
                     break;
                 default:
                     System.out.println("Invalid Input. Please choose one of the folowing options.");
