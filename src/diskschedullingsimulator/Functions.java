@@ -17,29 +17,29 @@ public class Functions {
     
     //Globals
     
-    Scanner s = new Scanner(System.in);
+    Scanner sq = new Scanner(System.in);
    public int total;
      
     public void requests(int[] req,int size,int bound){
-        
-        for(int i=0; i<size; i++){
+
+        for(int iq=0; iq<size; iq++){
             do{
-                req[i] = s.nextInt();
-                if(req[i] >= bound){
-                     System.out.println("You can't exceed the limit");
+                req[iq] = sq.nextInt();
+                if(req[iq] >= bound || req[iq] < 0){
+                     System.out.println("Invalid input, request must be within the boundary limit");
                 }
-            }while(req[i] >= bound);
+            }while(req[iq] >= bound || req[iq] < 0);
         }
     }
      
         public int FCFS(int[] req,int initial,int size){
-        int total = 0;
+        total = 0;
         ArrayList<Integer> sequence = new ArrayList<Integer>(size);
         total = Math.abs(initial - req[0]);
         sequence.add(req[0]);
-        for(int i=1;i< size;i++){
-            total += Math.abs(req[i] - req[i-1]);
-            sequence.add(req[i]);
+        for(int it=1;it< size;it++){
+            total += Math.abs(req[it] - req[it-1]);
+            sequence.add(req[it]);
         }
         
        System.out.println("Sequence: ");
@@ -57,58 +57,58 @@ public class Functions {
         Arrays.sort(scn);
         if(direction == 1){
             //left
-            for(int i=0; i<= size-1; i++){
-                if(initial <= scn[i] && brk == 0){
-                    total += Math.abs(initial - scn[i-1]);
-                    sequence.add(scn[i-1]);// i = 3
-                    for(int j=i-1; j >= 0; j--){
-                        if(j == 0){
-                            total += Math.abs(scn[j] - 0);
+            for(int ib=0; ib<= size-1; ib++){
+                if(initial <= scn[ib] && brk == 0){
+                    total += Math.abs(initial - scn[ib-1]);
+                    sequence.add(scn[ib-1]);
+                    for(int jt=ib-1; jt >= 0; jt--){
+                        if(jt == 0){
+                            total += Math.abs(scn[jt] - 0);
                             sequence.add(0);
-                            total += Math.abs(scn[i] - 0);
-                            sequence.add(scn[i]);
+                            total += Math.abs(scn[ib] - 0);
+                            sequence.add(scn[ib]);
                             brk = 1;
                             break;
                         }
-                        total += Math.abs(scn[j] - scn[j-1]);
-                        sequence.add(scn[j-1]);
+                        total += Math.abs(scn[jt] - scn[jt-1]);
+                        sequence.add(scn[jt-1]);
                     }
-                }else if(initial < scn[i] && total != 0){
-                    total += Math.abs(scn[i-1] - scn[i]);
-                    sequence.add(scn[i]);
+                }else if(initial < scn[ib] && total != 0){
+                    total += Math.abs(scn[ib-1] - scn[ib]);
+                    sequence.add(scn[ib]);
                 }
             }
             System.out.println("Sequence: ");
-            System.out.println(sequence.toString());
+            System.out.print(sequence.toString());
           return total;
         }
         else{
             //right
             total = 0;
             brk = 0;
-            for(int i=size-2; i>=0;i--){ //law size-1 hayeb2a fi index out of bounds 3shan else if condition
-                 if(initial >= scn[i] && brk == 0){ //i = 1
-                    total += Math.abs(initial - scn[i+1]);
-                    sequence.add(scn[i+1]);
-                    for(int j=i+1; j<=size-1;j++){ //j = 2
-                        if(j == size-1){
-                            total += Math.abs(scn[j] - bound);
+            for(int im=size-2; im>=0;im--){
+                 if(initial >= scn[im] && brk == 0){ //i = 1
+                    total += Math.abs(initial - scn[im+1]);
+                    sequence.add(scn[im+1]);
+                    for(int jo=im+1; jo<=size-1;jo++){ //j = 2
+                        if(jo == size-1){
+                            total += Math.abs(scn[jo] - bound);
                             sequence.add(bound);
-                            total += Math.abs(scn[i] - bound);
-                            sequence.add(scn[i]);
+                            total += Math.abs(scn[im] - bound);
+                            sequence.add(scn[im]);
                             brk = 1;
                             break;
                         }
-                        total += Math.abs(scn[j] - scn[j+1]);
-                        sequence.add(scn[j+1]);
+                        total += Math.abs(scn[jo] - scn[jo+1]);
+                        sequence.add(scn[jo+1]);
                     }
-                }else if(initial > scn[i+1]){ //i = 0 we take the sum of the values < initial before executing the right section
-                    total += Math.abs(scn[i+1] - scn[i]);
-                    sequence.add(scn[i]);
+                }else if(initial > scn[im+1]){
+                    total += Math.abs(scn[im+1] - scn[im]);
+                    sequence.add(scn[im]);
                 }
             }
             System.out.println("Sequence: ");
-            System.out.println(sequence.toString());
+            System.out.print(sequence.toString());
             return total;          
         }
     }

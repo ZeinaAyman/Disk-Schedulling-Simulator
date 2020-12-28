@@ -17,40 +17,40 @@ public class DiskSchedullingSimulator {
     
      public static void main(String[] args) {
         Functions p = new Functions();
-        Scanner s = new Scanner(System.in);
-        int size;
-        System.out.println("Enter size of array:");
+        Scanner sq = new Scanner(System.in);
+        int size12;
+        System.out.println("--Enter Array size:--");
         do{
-            size = s.nextInt();
-            if(size < 0){
-                System.out.println("Size of array can't be negative. Please try again.");
+            size12 = sq.nextInt();
+            if(size12 < 0){
+                System.out.println("Array Size can't be negative. Please try again.");
             }
-         }while(size < 0);
+         }while(size12 < 0);
         
-        int [] req = new int[size];
+        int [] req = new int[size12];
         int bound;
-        System.out.println("Enter the boundary:");
-        bound = s.nextInt();
+        System.out.println("--Enter boundary:--");
+        bound = sq.nextInt();
         
-        System.out.println("Enter the requests of the cylinder:");
-        p.requests(req,size,bound);
+        System.out.println("--Enter the requests of the cylinder:--");
+        p.requests(req,size12,bound);
    
-        System.out.println("The requests are: ");
-        for(int i=0; i<size; i++){
-            System.out.println(req[i]); 
+        System.out.println("--Requests are:-- ");
+        for(int iw=0; iw<size12; iw++){
+            System.out.println(req[iw]); 
         }
      
         int initial;
-        System.out.println("Enter the initial position of the head:");
+        System.out.println("--Enter the initial position of the head:--");
         do{
-            initial = s.nextInt();
+            initial = sq.nextInt();
             if(initial >= bound){
-                System.out.println("You can't exceed the limit.");
+                System.out.println("--You can't exceed the limit.--");
             }
          }while(initial >= bound);
         
-        System.out.println("Enter seek time per cylinder in seconds:");
-        double seek = s.nextDouble();
+        System.out.println("--Enter seek time per cylinder in seconds:--");
+        double seek = sq.nextDouble();
         double totalSeek;
         int algo;
         int c;
@@ -59,15 +59,15 @@ public class DiskSchedullingSimulator {
         
         System.out.println("Choose an algorithm: \n 1)FCFS \n 2)SCAN \n 3)Exit");
         do {
-            while (!s.hasNextInt())
+            while (!sq.hasNextInt())
             {
-                String in = s.next();
+                String in = sq.next();
                 System.out.println("Invalid input. Please try again.");
             }
-            algo = s.nextInt();
+            algo = sq.nextInt();
             if(algo == 1) {
                 
-                    System.out.println("Total number of head movements = " + p.FCFS(req,initial,size));
+                    System.out.println("\n --Total Num of head movements-- = " + p.FCFS(req,initial,size12));
                     totalSeek = p.total * seek;
                     System.out.println("Total seek time = " + totalSeek);
                     
@@ -78,14 +78,14 @@ public class DiskSchedullingSimulator {
                 scn = req;
                 System.out.println("Choose Direction: \n 1)Left \n 2)Right");
                     do{
-                        c = s.nextInt();
+                        c = sq.nextInt();
                         if (c == 1){
-                            System.out.println("Total number of head movements = " + p.SCAN(scn,initial,size,1, bound));
+                            System.out.println("\n Total Num of head movements = " + p.SCAN(scn,initial,size12,1, bound));
                             totalSeek = p.total * seek;
                             System.out.println("Total seek time = " + totalSeek);
                         }
                         else if (c == 2){
-                            System.out.println("Total number of head movements = " + p.SCAN(scn,initial,size,2, bound));
+                            System.out.println("\n Total Num of head movements = " + p.SCAN(scn,initial,size12,2, bound));
                             totalSeek = p.total * seek;
                              System.out.println("Total seek time = " + totalSeek);
                         }
@@ -108,4 +108,3 @@ public class DiskSchedullingSimulator {
      }while(algo != 3);
     }
 }
-
