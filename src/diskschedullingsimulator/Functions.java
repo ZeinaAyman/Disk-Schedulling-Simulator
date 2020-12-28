@@ -118,8 +118,47 @@ public class Functions {
         int brk = 0;
         ArrayList<Integer> sequence = new ArrayList<Integer>(size);
         Arrays.sort(cscn);
-        
-         if(direction == 2){
+        if(direction == 1){
+            //left
+            for(int ib=0; ib<= size-1; ib++){
+                if(initial <= cscn[ib] && brk == 0){
+                    total += Math.abs(initial - cscn[ib-1]);
+                    sequence.add(cscn[ib-1]);
+                    for(int jt=ib-1; jt >= 0; jt--){
+                        if(jt == 0){
+                            total += Math.abs(cscn[jt] - 0);
+                            sequence.add(0);
+                            //total += Math.abs(cscn[ib] - 0);
+                            //sequence.add(cscn[ib]);
+                            brk = 1;
+                            break;
+                        }
+                        total += Math.abs(cscn[jt] - cscn[jt-1]);
+                        sequence.add(cscn[jt-1]);
+                    }
+                }else if(cscn[size-1] == cscn[ib] && total != 0){
+                        total += Math.abs(cscn[ib] - bound);
+                        sequence.add(bound);
+                         for(int i=ib-1; i > 0; i--)
+                         {
+                             if(cscn[i] <= initial)
+                             {
+                                 break;
+                             }
+                             else
+                             {
+                                 total += Math.abs(cscn[i] - cscn[i+1]);
+                                 sequence.add(cscn[i]);
+                             }
+                         }
+
+                }
+            }
+            System.out.println("Sequence: ");
+            System.out.print(sequence.toString());
+          return total;
+        }
+        else{
             //right
              for(int im=size-2; im>0;im--){
                  if(initial >= cscn[im] && brk == 0){ //i = 1
@@ -129,7 +168,7 @@ public class Functions {
                         if(jo == size-1){
                             total += Math.abs(cscn[jo] - bound);
                             sequence.add(bound);
-                            total += Math.abs(0 - bound);
+                          //  total += Math.abs(0 - bound); //Keep in mind that the huge jump doesn't count as a head movement.
                             sequence.add(0);
                             brk = 1;
                             break;
@@ -155,3 +194,7 @@ public class Functions {
             return total;      
    } 
 }
+
+//VALIDATION LAW EL INITIAL MAWGOOD MA3ANA FIL REQUESTS
+//LAW EL INITIAL BE 0
+// LWA EL INITIAL BEL BOUND
