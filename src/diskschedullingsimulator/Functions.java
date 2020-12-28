@@ -52,7 +52,7 @@ public class Functions {
    public int SCAN(int[] scn,int initial,int size,int direction,int bound){
         total = 0;
         int brk = 0;
-        int g = 0;
+        
         ArrayList<Integer> sequence = new ArrayList<Integer>(size);
         Arrays.sort(scn);
         if(direction == 1){
@@ -112,4 +112,46 @@ public class Functions {
             return total;          
         }
     }
+   
+   public int CSCAN(int[] cscn,int initial,int size,int direction,int bound){
+        total = 0;
+        int brk = 0;
+        ArrayList<Integer> sequence = new ArrayList<Integer>(size);
+        Arrays.sort(cscn);
+        
+         if(direction == 2){
+            //right
+             for(int im=size-2; im>0;im--){
+                 if(initial >= cscn[im] && brk == 0){ //i = 1
+                    total += Math.abs(initial - cscn[im+1]);
+                    sequence.add(cscn[im+1]);
+                    for(int jo=im+1; jo<=size-1;jo++){ //j = 2
+                        if(jo == size-1){
+                            total += Math.abs(cscn[jo] - bound);
+                            sequence.add(bound);
+                            total += Math.abs(0 - bound);
+                            sequence.add(0);
+                            brk = 1;
+                            break;
+                        }
+                        total += Math.abs(cscn[jo] - cscn[jo+1]);
+                        sequence.add(cscn[jo+1]);
+                    }
+                }else if(initial > cscn[im+1]){
+                    
+                    total += Math.abs(cscn[0]-0);
+                    sequence.add(cscn[0]);
+                    
+                    for(int i=0; i < im+1; i++)
+                    {
+                        total+= Math.abs(cscn[i]-cscn[i+1]);
+                        sequence.add(cscn[i+1]);
+                    }
+                }
+                }
+         }
+            System.out.println("Sequence: ");
+            System.out.print(sequence.toString());
+            return total;      
+   } 
 }

@@ -57,7 +57,7 @@ public class DiskSchedullingSimulator {
         OUTER:
         do{
         
-        System.out.println("Choose an algorithm: \n 1)FCFS \n 2)SCAN \n 3)Exit");
+        System.out.println("Choose an algorithm: \n 1)FCFS \n 2)SCAN \n 3)C-SCAN \n 4)SSTF \n 5)LOOK \n 6)C-LOOK \n 7)Exit");
         do {
             while (!sq.hasNextInt())
             {
@@ -65,6 +65,8 @@ public class DiskSchedullingSimulator {
                 System.out.println("Invalid input. Please try again.");
             }
             algo = sq.nextInt();
+            
+            //FCFS
             if(algo == 1) {
                 
                     System.out.println("\n --Total Num of head movements-- = " + p.FCFS(req,initial,size12));
@@ -72,6 +74,8 @@ public class DiskSchedullingSimulator {
                     System.out.println("Total seek time = " + totalSeek);
                     
             }
+            
+            //SCAN
             else if (algo == 2)
             {
                 int scn[];
@@ -96,15 +100,42 @@ public class DiskSchedullingSimulator {
                     }while(c != 1 && c != 2);
             }
             
-            else if (algo == 3)
+            
+            //C-SCAN
+              else if (algo == 3)
+            {
+                int cscn[];
+                cscn = req;
+                System.out.println("Choose Direction: \n 1)Left \n 2)Right");
+                 do{
+                        c = sq.nextInt();
+                        if (c == 1){
+                            System.out.println("\n Total Num of head movements = " + p.CSCAN(cscn,initial,size12,1, bound));
+                            totalSeek = p.total * seek;
+                            System.out.println("Total seek time = " + totalSeek);
+                        }
+                        else if (c == 2){
+                            System.out.println("\n Total Num of head movements = " + p.CSCAN(cscn,initial,size12,2, bound));
+                            totalSeek = p.total * seek;
+                             System.out.println("Total seek time = " + totalSeek);
+                        }
+                        else{
+                            System.out.println("Invalid input. Please choose one of the following options.");
+                              
+                            }
+                    }while(c != 1 && c != 2);
+            }
+            
+            //EXIT
+            else if (algo == 4)
                 break OUTER;
             
             else{
                 System.out.println("Invalid input. Please choose one of the following options.");
             }
             
-        } while (algo != 1 && algo != 2);
+        } while (algo != 1 && algo != 2 && algo != 3  && algo != 4  && algo != 5  && algo != 6);
         
-     }while(algo != 3);
+     }while(algo != 7);
     }
 }
