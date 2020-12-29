@@ -52,7 +52,6 @@ public class Functions {
    public int SCAN(int[] scn,int initial,int size,int direction,int bound){
         total = 0;
         int brk = 0;
-        
         ArrayList<Integer> sequence = new ArrayList<Integer>(size);
         Arrays.sort(scn);
         if(direction == 1){
@@ -193,9 +192,72 @@ public class Functions {
             System.out.print(sequence.toString());
             return total;      
    } 
-}
+   
+    public int LOOK(int[] look,int initial,int size,int direction,int bound){
+        
+        total = 0;
+        int brk = 0;
+        ArrayList<Integer> sequence = new ArrayList<Integer>(size);
+        Arrays.sort(look);
+        if(direction == 1){
+            //left
+            
+             for(int ib=0; ib<= size-1; ib++){
+                if(initial <= look[ib] && brk == 0){
+                    total += Math.abs(initial - look[ib-1]);
+                    sequence.add(look[ib-1]);
+                    for(int jt=ib-1; jt >= 0; jt--){
+                        if(jt == 0){
+                            total += Math.abs(look[jt] - look[ib]);
+                            sequence.add(look[ib]);
+                            brk = 1;
+                            break;
+                        }
+                        total += Math.abs(look[jt] - look[jt-1]);
+                        sequence.add(look[jt-1]);
+                    }
+                }else if(initial < look[ib] && total != 0){
+                    total += Math.abs(look[ib-1] - look[ib]);
+                    sequence.add(look[ib]);
+                }
+            }
+            
+            
+        }
+        
+         else{
+            //right
+            total = 0;
+            brk = 0;
+            
+             for(int im=size-2; im>=0;im--){
+                 if(initial >= look[im] && brk == 0){ //i = 1
+                    total += Math.abs(initial - look[im+1]);
+                    sequence.add(look[im+1]);
+                    for(int jo=im+1; jo<=size-1;jo++){ //j = 2
+                        if(jo == size-1){
+                           total += Math.abs(look[jo] - look[im]); //im = 1, index 2 = 42
+                           sequence.add(look[im]);
+                           brk = 1;
+                            break;
+                        }
+
+                        total += Math.abs(look[jo] - look[jo+1]);
+                        sequence.add(look[jo+1]);
+                    }
+                }else if(initial > look[im+1]){
+                    total += Math.abs(look[im+1] - look[im]);
+                    sequence.add(look[im]);
+                }
+            }
+        }
+        
+            System.out.println("Sequence: ");
+            System.out.print(sequence.toString());
+        return total;
+}}
 
 //VALIDATION LAW EL INITIAL MAWGOOD MA3ANA FIL REQUESTS
 //LAW EL INITIAL BE 0
 // LWA EL INITIAL BEL BOUND
-// NEKHALY EL BOUND - 1
+//OPTIMIZE REPITITIONS: SEQUENCE, SORT, ETC.
