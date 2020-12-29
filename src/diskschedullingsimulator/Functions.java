@@ -159,7 +159,9 @@ public class Functions {
         }
         else{
             //right
-             for(int im=size-2; im>0;im--){
+            total = 0;
+            brk = 0;
+             for(int im=size-2; im>=0;im--){
                  if(initial >= cscn[im] && brk == 0){ //i = 1
                     total += Math.abs(initial - cscn[im+1]);
                     sequence.add(cscn[im+1]);
@@ -175,7 +177,7 @@ public class Functions {
                         total += Math.abs(cscn[jo] - cscn[jo+1]);
                         sequence.add(cscn[jo+1]);
                     }
-                }else if(initial > cscn[im+1]){
+                }else if(initial > cscn[im+1] && brk == 1){
                     
                     total += Math.abs(cscn[0]-0);
                     sequence.add(cscn[0]);
@@ -185,6 +187,7 @@ public class Functions {
                         total+= Math.abs(cscn[i]-cscn[i+1]);
                         sequence.add(cscn[i+1]);
                     }
+                    brk = 2;
                 }
                 }
          }
@@ -201,7 +204,6 @@ public class Functions {
         Arrays.sort(look);
         if(direction == 1){
             //left
-            
              for(int ib=0; ib<= size-1; ib++){
                 if(initial <= look[ib] && brk == 0){
                     total += Math.abs(initial - look[ib-1]);
@@ -300,27 +302,30 @@ public class Functions {
         }
         else{
             //right
-             for(int im=size-2; im>0;im--){
+            total = 0;
+            brk = 0;
+             for(int im=size-2; im>=0;im--){
                  if(initial >= clook[im] && brk == 0){ //i = 1
                     total += Math.abs(initial - clook[im+1]);
                     sequence.add(clook[im+1]);
                     for(int jo=im+1; jo<=size-1;jo++){ //j = 2
                         if(jo == size-1){
-                            total += Math.abs(clook[jo] - clook[im-2]); //im = 1, index 2 = 42
-                            sequence.add(clook[im-2]);
+                            total += Math.abs(clook[jo] - clook[0]);
+                            sequence.add(clook[0]);
                             brk = 1;
                             break;
                         }
                         total += Math.abs(clook[jo] - clook[jo+1]);
                         sequence.add(clook[jo+1]);
                     }
-                }else if(initial > clook[im+1]){
+                }else if(initial > clook[im+1] && brk == 1){
                     
                     for(int i=0; i < im+1; i++)
                     {
                         total+= Math.abs(clook[i]-clook[i+1]);
                         sequence.add(clook[i+1]);
                     }
+                    brk = 2;
                 }
                 }
          }
