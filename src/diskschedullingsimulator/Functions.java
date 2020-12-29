@@ -127,8 +127,8 @@ public class Functions {
                         if(jt == 0){
                             total += Math.abs(cscn[jt] - 0);
                             sequence.add(0);
-                            //total += Math.abs(cscn[ib] - 0);
-                            //sequence.add(cscn[ib]);
+                            total += Math.abs(bound - 0);
+                            sequence.add(bound);
                             brk = 1;
                             break;
                         }
@@ -137,7 +137,7 @@ public class Functions {
                     }
                 }else if(cscn[size-1] == cscn[ib] && total != 0){
                         total += Math.abs(cscn[ib] - bound);
-                        sequence.add(bound);
+                        sequence.add(cscn[ib]);
                          for(int i=ib-1; i > 0; i--)
                          {
                              if(cscn[i] <= initial)
@@ -167,7 +167,7 @@ public class Functions {
                         if(jo == size-1){
                             total += Math.abs(cscn[jo] - bound);
                             sequence.add(bound);
-                          //  total += Math.abs(0 - bound); //Keep in mind that the huge jump doesn't count as a head movement.
+                            total += Math.abs(0 - bound);
                             sequence.add(0);
                             brk = 1;
                             break;
@@ -255,7 +255,83 @@ public class Functions {
             System.out.println("Sequence: ");
             System.out.print(sequence.toString());
         return total;
-}}
+}
+
+    public int CLOOK(int[] clook,int initial,int size,int direction,int bound){
+        total = 0;
+        int brk = 0;
+        ArrayList<Integer> sequence = new ArrayList<Integer>(size);
+        Arrays.sort(clook);
+        if(direction == 1){
+            //left
+            for(int ib=0; ib<= size-1; ib++){
+                if(initial <= clook[ib] && brk == 0){
+                    total += Math.abs(initial - clook[ib-1]);
+                    sequence.add(clook[ib-1]);
+                    for(int jt=ib-1; jt >= 0; jt--){
+                        if(jt == 0){
+                            total += Math.abs(clook[jt] - clook[size-1]); // jt = 0 // ib = 2
+                            sequence.add(clook[size-1]);
+                            brk = 1;
+                            break;
+                        }
+                        total += Math.abs(clook[jt] - clook[jt-1]);
+                        sequence.add(clook[jt-1]);
+                    }
+                }else if(clook[size-1] == clook[ib] && total != 0){
+                         for(int i=ib-1; i > 0; i--)
+                         {
+                             if(clook[i] <= initial)
+                             {
+                                 break;
+                             }
+                             else
+                             {
+                                 total += Math.abs(clook[i] - clook[i+1]);
+                                 sequence.add(clook[i]);
+                             }
+                         }
+
+                }
+            }
+            System.out.println("Sequence: ");
+            System.out.print(sequence.toString());
+          return total;
+        }
+        else{
+            //right
+             for(int im=size-2; im>0;im--){
+                 if(initial >= clook[im] && brk == 0){ //i = 1
+                    total += Math.abs(initial - clook[im+1]);
+                    sequence.add(clook[im+1]);
+                    for(int jo=im+1; jo<=size-1;jo++){ //j = 2
+                        if(jo == size-1){
+                            total += Math.abs(clook[jo] - clook[im-2]); //im = 1, index 2 = 42
+                            sequence.add(clook[im-2]);
+                            brk = 1;
+                            break;
+                        }
+                        total += Math.abs(clook[jo] - clook[jo+1]);
+                        sequence.add(clook[jo+1]);
+                    }
+                }else if(initial > clook[im+1]){
+                    
+                    for(int i=0; i < im+1; i++)
+                    {
+                        total+= Math.abs(clook[i]-clook[i+1]);
+                        sequence.add(clook[i+1]);
+                    }
+                }
+                }
+         }
+            System.out.println("Sequence: ");
+            System.out.print(sequence.toString());
+            return total;      
+   } 
+
+
+
+}
 
 //VALIDATION LAW EL INITIAL MAWGOOD MA3ANA FIL REQUESTS
 //LAW EL INITIAL BE 0

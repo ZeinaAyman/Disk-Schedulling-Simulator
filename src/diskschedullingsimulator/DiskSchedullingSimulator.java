@@ -128,7 +128,7 @@ public class DiskSchedullingSimulator {
             
               else if (algo == 4)
               {
-                    int look[];
+                int look[];
                 look = req;
                 System.out.println("Choose Direction: \n 1)Left \n 2)Right");
                  do{
@@ -140,6 +140,29 @@ public class DiskSchedullingSimulator {
                         }
                         else if (c == 2){
                             System.out.println("\n Total Num of head movements = " + p.LOOK(look,initial,size12,2, bound));
+                            totalSeek = p.total * seek;
+                             System.out.println("Total seek time = " + totalSeek);
+                        }
+                        else{
+                            System.out.println("Invalid input. Please choose one of the following options.");
+                              
+                            }
+                    }while(c != 1 && c != 2);
+              }
+              else if (algo == 5)
+              {
+                int clook[];
+                clook = req;
+                System.out.println("Choose Direction: \n 1)Left \n 2)Right");
+                 do{
+                        c = sq.nextInt();
+                        if (c == 1){
+                            System.out.println("\n Total Num of head movements = " + p.CLOOK(clook,initial,size12,1, bound));
+                            totalSeek = p.total * seek;
+                            System.out.println("Total seek time = " + totalSeek);
+                        }
+                        else if (c == 2){
+                            System.out.println("\n Total Num of head movements = " + p.CLOOK(clook,initial,size12,2, bound));
                             totalSeek = p.total * seek;
                              System.out.println("Total seek time = " + totalSeek);
                         }
