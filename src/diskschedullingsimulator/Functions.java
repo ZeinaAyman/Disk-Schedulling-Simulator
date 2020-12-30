@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package diskschedullingsimulator;
 
 import java.util.ArrayList;
@@ -373,7 +369,6 @@ public int SSTF(ArrayList<Integer> sstf,int initial,int size,int direction,int b
                     sstf.remove(sstf.get(i+1));
                     break;
                 }
-                //total += Math.min((initial - sstf.indexOf(i)),(sstf.indexOf(i+1) - initial));
             }
         }
         
@@ -416,22 +411,11 @@ public int SSTF(ArrayList<Integer> sstf,int initial,int size,int direction,int b
                     curr = sstf.get(max);
                     sstf.remove(sstf.get(max));
                     min  = max - 1;
-                    //max = max;
                 }
-                //total += Math.min((initial - sstf.indexOf(i)),(sstf.indexOf(i+1) - initial));
             }
  
-           
-        
             System.out.println("Sequence: ");
             System.out.print(sequence.toString());
             return total; 
     }
 }
-
-
-
-//VALIDATION LAW EL INITIAL MAWGOOD MA3ANA FIL REQUESTS
-//LAW EL INITIAL BE 0
-// LWA EL INITIAL BEL BOUND
-//OPTIMIZE REPITITIONS: SEQUENCE, SORT, ETC.
