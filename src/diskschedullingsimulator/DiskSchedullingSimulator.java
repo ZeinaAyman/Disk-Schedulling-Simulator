@@ -31,6 +31,7 @@ public class DiskSchedullingSimulator {
         int bound;
         System.out.println("--Enter boundary:--");
         bound = sq.nextInt();
+        bound--;
         
         System.out.println("--Enter the requests of the cylinder:--");
         p.requests(req,size12,bound);

@@ -390,6 +390,16 @@ public int SSTF(ArrayList<Integer> sstf,int initial,int size,int direction,int b
                 }
                 break;
             }
+            else if(curr == last){
+                total += last - sstf.get(sstf.size()-1);
+                sequence.add(sstf.get(sstf.size()-1));
+                for(int u = sstf.size()- 1; u>0; u--)
+                {
+                    total += sstf.get(u) - sstf.get(u-1);
+                    sequence.add(sstf.get(u-1));
+                }
+                break;
+            }
             else if((curr - sstf.get(min)) < (sstf.get(max) - curr))
                 {
                     total += curr - sstf.get(min);
@@ -405,17 +415,13 @@ public int SSTF(ArrayList<Integer> sstf,int initial,int size,int direction,int b
                     sequence.add(sstf.get(max));
                     curr = sstf.get(max);
                     sstf.remove(sstf.get(max));
-                    min  = max;
-                    max = max + 1;
+                    min  = max - 1;
+                    //max = max;
                 }
                 //total += Math.min((initial - sstf.indexOf(i)),(sstf.indexOf(i+1) - initial));
             }
  
            
-            
-//            if(curr == sstf.get(size-1)){
-//                
-//            }
         
             System.out.println("Sequence: ");
             System.out.print(sequence.toString());
@@ -429,4 +435,3 @@ public int SSTF(ArrayList<Integer> sstf,int initial,int size,int direction,int b
 //LAW EL INITIAL BE 0
 // LWA EL INITIAL BEL BOUND
 //OPTIMIZE REPITITIONS: SEQUENCE, SORT, ETC.
-//test with new array size and new requests for every function
