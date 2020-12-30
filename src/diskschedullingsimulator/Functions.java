@@ -8,6 +8,7 @@ package diskschedullingsimulator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Collections;
 
 /**
  *
@@ -336,9 +337,96 @@ public class Functions {
 
 
 
+
+
+public int SSTF(ArrayList<Integer> sstf,int initial,int size,int direction,int bound){
+        total = 0;
+        int curr = initial;
+        int max = 0;
+        int min = 0;
+        ArrayList<Integer> sequence = new ArrayList<Integer>(size);
+        Collections.sort(sstf);
+        int first = sstf.get(0);
+        int last = sstf.get(size-1);
+        for(int i=0; i<=size-1; i++)
+        {
+            if(curr < sstf.get(i+1))
+            {
+                if((curr - sstf.get(i)) < (sstf.get(i+1) - curr))
+                {
+                    total += curr - sstf.get(i);
+                    sequence.add(sstf.get(i));
+                    curr = sstf.get(i);
+                    min  = i-1;
+                    max = i;
+                    sstf.remove(sstf.get(i));
+                    break;
+                    
+                }
+                else
+                {
+                    total += sstf.get(i+1) - curr;
+                    sequence.add(sstf.get(i+1));
+                    curr = sstf.get(i+1);
+                    min  = i;
+                    max = i + 1;
+                    sstf.remove(sstf.get(i+1));
+                    break;
+                }
+                //total += Math.min((initial - sstf.indexOf(i)),(sstf.indexOf(i+1) - initial));
+            }
+        }
+        
+        for(int j=0; j<=size-1;j++)
+        {
+            if(curr == first){
+                total += sstf.get(0) - first;
+                sequence.add(sstf.get(0));
+                for(int u = 0; u<sstf.size()- 1; u++)
+                {
+                    total += sstf.get(u+1) - sstf.get(u);
+                    sequence.add(sstf.get(u+1));
+                    
+                }
+                break;
+            }
+            else if((curr - sstf.get(min)) < (sstf.get(max) - curr))
+                {
+                    total += curr - sstf.get(min);
+                    sequence.add(sstf.get(min));
+                    curr = sstf.get(min);
+                    sstf.remove(sstf.get(min));
+                    max = min;
+                    min  = min-1;
+                }
+                else
+                {
+                    total += sstf.get(max) - curr;
+                    sequence.add(sstf.get(max));
+                    curr = sstf.get(max);
+                    sstf.remove(sstf.get(max));
+                    min  = max;
+                    max = max + 1;
+                }
+                //total += Math.min((initial - sstf.indexOf(i)),(sstf.indexOf(i+1) - initial));
+            }
+ 
+           
+            
+//            if(curr == sstf.get(size-1)){
+//                
+//            }
+        
+            System.out.println("Sequence: ");
+            System.out.print(sequence.toString());
+            return total; 
+    }
 }
+
+
 
 //VALIDATION LAW EL INITIAL MAWGOOD MA3ANA FIL REQUESTS
 //LAW EL INITIAL BE 0
 // LWA EL INITIAL BEL BOUND
 //OPTIMIZE REPITITIONS: SEQUENCE, SORT, ETC.
+//test with new array size and new requests for every function

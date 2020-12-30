@@ -126,6 +126,7 @@ public class DiskSchedullingSimulator {
                     }while(c != 1 && c != 2);
             }
             
+              //LOOK
               else if (algo == 4)
               {
                 int look[];
@@ -149,6 +150,8 @@ public class DiskSchedullingSimulator {
                             }
                     }while(c != 1 && c != 2);
               }
+              
+              //C-LOOK
               else if (algo == 5)
               {
                 int clook[];
@@ -172,6 +175,22 @@ public class DiskSchedullingSimulator {
                             }
                     }while(c != 1 && c != 2);
               }
+              
+              //SSTF
+              else if (algo == 6)
+            {
+                 ArrayList<Integer> sstf = new ArrayList<Integer>();
+                    for(int text:req) {
+                          sstf.add(text);
+                         }
+
+
+                        System.out.println("\n Total Num of head movements = " + p.SSTF(sstf,initial,size12,1, bound));
+                            totalSeek = p.total * seek;
+                            System.out.println("Total seek time = " + totalSeek);
+
+
+            }
             //EXIT
             else if (algo == 7)
                 break OUTER;
